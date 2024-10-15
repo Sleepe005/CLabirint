@@ -23,10 +23,8 @@ int main(){
     int key;
     key = getch();
     printw("%d\n", key);
-    key = getch();
-    printw("%d\n", key);
-    key = getch();
-    printw("%d\n", key);
+    // key = getch();
+    // printw("%d\n", key);
 
 
     getch();

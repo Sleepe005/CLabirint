@@ -16,9 +16,17 @@ char tableBoldRec[3][20] = { "┏━━━┓",
                              "┃ * ┃",
                              "┗━━━┛"};
 
-    char tableFullRec[3][20] = { "█████",
-                                 "█████",
-                                 "█████"};
+char tableFullRec[3][20] = { "┌███┐",
+                             "│███│",
+                             "└███┘"};
+
+char startRec[3][20] = { "┏━━━┓",
+                         "┃ S ┃",
+                         "┗━━━┛"};
+
+char endRec[3][20] = {"┏━━━┓",
+                      "┃ E ┃",
+                      "┗━━━┛"};
 
 void printRec(char tableRec[3][20], int row, int column){
     printw(tableRec[0]);    
@@ -49,7 +57,7 @@ void Split(char data[6], int *value){
     int pos = 0;
     int j = 0;
     for(int i = 0; i < strlen(data); ++i){
-        if(ispunct(data[i])){
+        if(!isdigit(data[i])){
             value[j] = atoi(element);
             j++;
             strcpy(element, "");
@@ -61,7 +69,6 @@ void Split(char data[6], int *value){
     }
     value[j] = atoi(element);
 }
-
 
 void doLab(){
     // Размер лабиринта
@@ -78,16 +85,36 @@ void doLab(){
         sizeB = sizesValues[1];
     }
 
+    // Генерируем лабиринт
+    int labirint[sizeA][sizeB];
+    for(int row = 0; row != sizeA; ++row){
+        for(int column = 0; column != sizeB; ++column){
+            if(row == 0 || row == sizeA-1 || column == 0 || column == sizeB-1){
+                labirint[row][column] = 1;
+            }
+            else{
+                labirint[row][column] = 0;
+            }
+        }
+    }
+
     clear();
     int key;
 
+
+    bool hasStart = false;
+    bool hasEnd = false;
     while(true){
         for(int row = 0; row != sizeA; ++row){
             for(int column = 0; column != sizeB; ++column){
                 if(curseX == column && curseY == row){
                     printRec(tableBoldRec, row, column);
-                }else if(row == 0 || row == sizeA-1 || column == 0 || column == sizeB-1){
+                }else if(labirint[row][column] == 1){
                     printRec(tableFullRec, row, column);
+                }else if(labirint[row][column] == 2){
+                    printRec(startRec, row, column);
+                }else if(labirint[row][column] == 3){
+                    printRec(endRec, row, column);
                 }else{
                     printRec(tableRec, row, column);
                 }
@@ -96,7 +123,11 @@ void doLab(){
         }
 
         printw("Для управления используйте стрлочки\n");
-        printw("Для перехода в главное меню два раза нажмите esc");
+        printw("Для перехода в главное меню два раза нажмите esc\n");
+        printw("Для установки стены нажмите enter\n");
+        printw("Для удаления стены нажмите delete\n");
+        printw("Для установки точки старта нажмите S\n");
+        printw("Для установки точки выхода нажмите E\n");
 
         key = getch();
         if(key == 27){
@@ -124,13 +155,43 @@ void doLab(){
                         curseX = 0;
                     }
                 }
-            }
-            if (key == 27){
-                clear();
-                break;
-            }
+            }if (key == 27){
+                if(hasStart && hasEnd){
+                    clear();
+                    break;
+                }else{
+                    clear();
+                    printw("В лабиринте должна быть точка старта и точка выхода\n");
+                    printw("Для продолжение создания лабиринта нажмите любую клавишу...\n");
+                    getch();
+                }
+            }  
 
-                clear();
+            clear();
+        }else if(key == 10){
+            labirint[curseY][curseX] = 1;
+        }else if(key == 127){
+            labirint[curseY][curseX] = 0;
+        }else if(key == 115){
+            hasStart = true;
+            for(int row = 0; row != sizeA; ++row){
+                for(int column = 0; column != sizeB; ++column){
+                    if(labirint[row][column] == 2){
+                        labirint[row][column] = 0;
+                    }
+                }
+            }
+            labirint[curseY][curseX] = 2;
+        }else if(key == 101){
+            hasEnd = true;
+            for(int row = 0; row != sizeA; ++row){
+                for(int column = 0; column != sizeB; ++column){
+                    if(labirint[row][column] == 3){
+                        labirint[row][column] = 0;
+                    }
+                }
+            }
+            labirint[curseY][curseX] = 3;
         }
     }
 }
