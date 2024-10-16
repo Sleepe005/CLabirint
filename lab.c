@@ -28,6 +28,8 @@ char endRec[3][20] = {"┏━━━┓",
                       "┃ E ┃",
                       "┗━━━┛"};
 
+int* labirint;
+
 void printRec(char tableRec[3][20], int row, int column){
     printw(tableRec[0]);    
     move(row+1+3*row,(column)*5); 
@@ -83,24 +85,25 @@ void doLab(){
         Split(sizes, sizesValues);
         sizeA = sizesValues[0];
         sizeB = sizesValues[1];
+
+        labirint = (int*)malloc(sizeA * sizeB * sizeof(int));
     }
 
     // Генерируем лабиринт
-    int labirint[sizeA][sizeB];
+    // int labirint[sizeA][sizeB];
     for(int row = 0; row != sizeA; ++row){
         for(int column = 0; column != sizeB; ++column){
             if(row == 0 || row == sizeA-1 || column == 0 || column == sizeB-1){
-                labirint[row][column] = 1;
+                *(labirint + row*sizeB + column) = 1;
             }
             else{
-                labirint[row][column] = 0;
+                *(labirint + row*sizeB + column) = 0;
             }
         }
     }
 
     clear();
     int key;
-
 
     bool hasStart = false;
     bool hasEnd = false;
@@ -109,11 +112,11 @@ void doLab(){
             for(int column = 0; column != sizeB; ++column){
                 if(curseX == column && curseY == row){
                     printRec(tableBoldRec, row, column);
-                }else if(labirint[row][column] == 1){
+                }else if(*(labirint + row*sizeB + column) == 1){
                     printRec(tableFullRec, row, column);
-                }else if(labirint[row][column] == 2){
+                }else if(*(labirint + row*sizeB + column) == 2){
                     printRec(startRec, row, column);
-                }else if(labirint[row][column] == 3){
+                }else if(*(labirint + row*sizeB + column) == 3){
                     printRec(endRec, row, column);
                 }else{
                     printRec(tableRec, row, column);
@@ -169,29 +172,41 @@ void doLab(){
 
             clear();
         }else if(key == 10){
-            labirint[curseY][curseX] = 1;
+            if(*(labirint + curseY*sizeB + curseX) == 2){
+                hasStart = false;
+            }
+            if(*(labirint + curseY*sizeB + curseX) == 3){
+                hasEnd = false;
+            }
+            *(labirint + curseY*sizeB + curseX) = 1;
         }else if(key == 127){
-            labirint[curseY][curseX] = 0;
+            if(*(labirint + curseY*sizeB + curseX) == 2){
+                hasStart = false;
+            }
+            if(*(labirint + curseY*sizeB + curseX) == 3){
+                hasEnd = false;
+            }
+            *(labirint + curseY*sizeB + curseX) = 0;
         }else if(key == 115){
             hasStart = true;
             for(int row = 0; row != sizeA; ++row){
                 for(int column = 0; column != sizeB; ++column){
-                    if(labirint[row][column] == 2){
-                        labirint[row][column] = 0;
+                    if(*(labirint + row*sizeB + column) == 2){
+                        *(labirint + row*sizeB + column) = 0;
                     }
                 }
             }
-            labirint[curseY][curseX] = 2;
+            *(labirint + curseY*sizeB + curseX) = 2;
         }else if(key == 101){
             hasEnd = true;
             for(int row = 0; row != sizeA; ++row){
                 for(int column = 0; column != sizeB; ++column){
-                    if(labirint[row][column] == 3){
-                        labirint[row][column] = 0;
+                    if(*(labirint + row*sizeB + column) == 3){
+                        *(labirint + row*sizeB + column) = 0;
                     }
                 }
             }
-            labirint[curseY][curseX] = 3;
+            *(labirint + curseY*sizeB + curseX) = 3;
         }
     }
 }
@@ -201,6 +216,7 @@ int main(){
     initscr();
 
     int key;
+
     while(true){
         printMenu();
 
