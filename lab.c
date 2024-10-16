@@ -30,6 +30,10 @@ char endRec[3][20] = {"┏━━━┓",
 
 int* labirint;
 
+bool haveLabirint = false;
+bool hasStart = false;
+bool hasEnd = false;
+
 void printRec(char tableRec[3][20], int row, int column){
     printw(tableRec[0]);    
     move(row+1+3*row,(column)*5); 
@@ -72,7 +76,42 @@ void Split(char data[6], int *value){
     value[j] = atoi(element);
 }
 
+void findInLabirint(int itemToFind, int *retValues){
+    bool finding = false;
+    for(int row = 0; row != sizeA; ++row){
+        for(int column = 0; column != sizeB; ++column){
+            if(*(labirint + row*sizeB + column) == itemToFind){
+                // *rowFind = row;
+                // *columnFind = column;
+                retValues[0] = row;
+                retValues[1] = column;
+                finding = true;
+            }
+        }
+    }
+    if(!finding){
+        retValues[0] = -1;
+        retValues[1] = -1;
+    }
+}
+
 void doLab(){
+    if(haveLabirint){
+        clear();
+        printw("1. Создать новый лабиринт\n");
+        printw("2. Редактировать уже существующий лабиринт\n");
+
+        int key = getch();
+        if(key == 49){
+            haveLabirint = false;
+            hasStart = false;
+            hasEnd = false;
+            sizeA = 0;
+            sizeB = 0;
+            free(labirint);
+        }
+    }
+
     // Размер лабиринта
     if(sizeA == 0 || sizeB == 0){
         clear();
@@ -91,22 +130,24 @@ void doLab(){
 
     // Генерируем лабиринт
     // int labirint[sizeA][sizeB];
-    for(int row = 0; row != sizeA; ++row){
-        for(int column = 0; column != sizeB; ++column){
-            if(row == 0 || row == sizeA-1 || column == 0 || column == sizeB-1){
-                *(labirint + row*sizeB + column) = 1;
-            }
-            else{
-                *(labirint + row*sizeB + column) = 0;
+    if(!haveLabirint){
+        for(int row = 0; row != sizeA; ++row){
+            for(int column = 0; column != sizeB; ++column){
+                if(row == 0 || row == sizeA-1 || column == 0 || column == sizeB-1){
+                    *(labirint + row*sizeB + column) = 1;
+                }
+                else{
+                    *(labirint + row*sizeB + column) = 0;
+                }
             }
         }
+        haveLabirint = true;
     }
 
     clear();
     int key;
 
-    bool hasStart = false;
-    bool hasEnd = false;
+    
     while(true){
         for(int row = 0; row != sizeA; ++row){
             for(int column = 0; column != sizeB; ++column){
@@ -189,22 +230,18 @@ void doLab(){
             *(labirint + curseY*sizeB + curseX) = 0;
         }else if(key == 115){
             hasStart = true;
-            for(int row = 0; row != sizeA; ++row){
-                for(int column = 0; column != sizeB; ++column){
-                    if(*(labirint + row*sizeB + column) == 2){
-                        *(labirint + row*sizeB + column) = 0;
-                    }
-                }
+            int retValues[2] = {0,0};
+            findInLabirint(2, retValues);
+            if(retValues[0] != -1){
+                *(labirint + retValues[0]*sizeB + retValues[1]) = 0;
             }
             *(labirint + curseY*sizeB + curseX) = 2;
         }else if(key == 101){
             hasEnd = true;
-            for(int row = 0; row != sizeA; ++row){
-                for(int column = 0; column != sizeB; ++column){
-                    if(*(labirint + row*sizeB + column) == 3){
-                        *(labirint + row*sizeB + column) = 0;
-                    }
-                }
+            int retValues[2] = {0,0};
+            findInLabirint(3, retValues);
+            if(retValues[0] != -1){
+                *(labirint + retValues[0]*sizeB + retValues[1]) = 0;
             }
             *(labirint + curseY*sizeB + curseX) = 3;
         }
