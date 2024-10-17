@@ -256,11 +256,11 @@ void doLab(){
     }
 }
 
-int isValid(int row, int col, int visited[sizeA][sizeB]) {
-    return (row >= 0 && row < sizeA && col >= 0 && col < sizeB && *(labirint + row*sizeB + col) != 1 && !visited[row][col]);
+int isValid(int row, int col, int **visited) {
+    return (row >= 0 && row < sizeA && col >= 0 && col < sizeB && *(labirint + row*sizeB + col) != 1 && visited[row][col] == 0);
 }
 
-bool solveLab(int visited[sizeA][sizeB], Point current, Point end, Point* path, int step){
+bool solveLab(int **visited, Point current, Point end, Point* path, int step){
      // Если достигли выхода, сохраняем текущее положение в путь и возвращаем успех
     if (current.row == end.row && current.col == end.col) {
         path[step] = current;
@@ -305,7 +305,16 @@ int main(){
             doLab();
         }else if(key == 50){
             clear();
-            int visited[10][10] = {0};
+            int **visited = (int **)malloc(sizeA * sizeof(int *));
+            for (int i = 0; i < sizeA; i++) {
+                visited[i] = (int *)malloc(sizeB * sizeof(int));
+            }
+            // Инициализация массива
+            for (int i = 0; i < sizeA; i++) {
+                for (int j = 0; j < sizeB; j++) {
+                    visited[i][j] = 0; // Присваиваем 0 всем элементам
+                }
+            }
 
             int valStart[2] = {0};
             findInLabirint(2, valStart);
@@ -326,7 +335,18 @@ int main(){
                 // }
                 // printw("EXIT\n");
 
-                int sl[10][10] = {0};
+                // int sl[sizeA][sizeB] = {0};
+                int **sl = (int **)malloc(sizeA * sizeof(int *));
+                for (int i = 0; i < sizeA; i++) {
+                    sl[i] = (int *)malloc(sizeB * sizeof(int));
+                }
+                // Инициализация массива
+                for (int i = 0; i < sizeA; i++) {
+                    for (int j = 0; j < sizeB; j++) {
+                        sl[i][j] = 0; // Присваиваем 0 всем элементам
+                    }
+                }
+
                 for(int i = 0; i < sizeA*sizeB; i++){
                     if (path[i].row == 0 && path[i].col == 0) break;
                     sl[path[i].row][path[i].col] = 1;
@@ -347,12 +367,23 @@ int main(){
                         }
                     }
                     move(row+4+3*row, 0);
+
+                       // Освобождение памяти
+                    // for (int i = 0; i < sizeA; i++) {
+                    //     free(sl[i]);
+                    // }
+                    // free(sl);
                 }
 
             } else {
                 printw("Путь не найден.\n");
             }
             getch();
+
+            // for (int i = 0; i < sizeA; i++) {
+            //     free(visited[i]);
+            // }
+            // free(visited);
         }
 
         clear();
