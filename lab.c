@@ -316,7 +316,7 @@ int main(){
             Point start = {valStart[0], valStart[1]};
             Point end = {valEnd[0], valEnd[1]};
 
-            Point path[100];
+            Point path[100] = {0,0};
 
             if(solveLab(visited, start, end, path, 0)){
                 // printw("Путь найден:\n");

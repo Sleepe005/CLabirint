@@ -2,28 +2,28 @@
 triple:          'arm64-apple-darwin'
 binary-path:     '/Users/kholo/Documents/Programming/university/C/Labirint/lab'
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _printRec, symObjAddr: 0x0, symBinAddr: 0x10000269C, symSize: 0xE8 }
-  - { offsetInCU: 0x3F, offset: 0x3F, size: 0x8, addend: 0x0, symName: _sizeA, symObjAddr: 0x3574, symBinAddr: 0x100008158, symSize: 0x0 }
-  - { offsetInCU: 0x5B, offset: 0x5B, size: 0x8, addend: 0x0, symName: _sizeB, symObjAddr: 0x3578, symBinAddr: 0x10000815C, symSize: 0x0 }
-  - { offsetInCU: 0x70, offset: 0x70, size: 0x8, addend: 0x0, symName: _curseX, symObjAddr: 0x133C, symBinAddr: 0x100008000, symSize: 0x0 }
-  - { offsetInCU: 0x85, offset: 0x85, size: 0x8, addend: 0x0, symName: _curseY, symObjAddr: 0x1340, symBinAddr: 0x100008004, symSize: 0x0 }
-  - { offsetInCU: 0x9A, offset: 0x9A, size: 0x8, addend: 0x0, symName: _tableRec, symObjAddr: 0x1344, symBinAddr: 0x100008008, symSize: 0x0 }
-  - { offsetInCU: 0xCF, offset: 0xCF, size: 0x8, addend: 0x0, symName: _tableBoldRec, symObjAddr: 0x1380, symBinAddr: 0x100008044, symSize: 0x0 }
-  - { offsetInCU: 0xE4, offset: 0xE4, size: 0x8, addend: 0x0, symName: _tableFullRec, symObjAddr: 0x13BC, symBinAddr: 0x100008080, symSize: 0x0 }
-  - { offsetInCU: 0xF9, offset: 0xF9, size: 0x8, addend: 0x0, symName: _startRec, symObjAddr: 0x13F8, symBinAddr: 0x1000080BC, symSize: 0x0 }
-  - { offsetInCU: 0x10E, offset: 0x10E, size: 0x8, addend: 0x0, symName: _endRec, symObjAddr: 0x1434, symBinAddr: 0x1000080F8, symSize: 0x0 }
-  - { offsetInCU: 0x123, offset: 0x123, size: 0x8, addend: 0x0, symName: _haveLabirint, symObjAddr: 0x357C, symBinAddr: 0x100008160, symSize: 0x0 }
-  - { offsetInCU: 0x13F, offset: 0x13F, size: 0x8, addend: 0x0, symName: _hasStart, symObjAddr: 0x357D, symBinAddr: 0x100008161, symSize: 0x0 }
-  - { offsetInCU: 0x154, offset: 0x154, size: 0x8, addend: 0x0, symName: _hasEnd, symObjAddr: 0x357E, symBinAddr: 0x100008162, symSize: 0x0 }
-  - { offsetInCU: 0x169, offset: 0x169, size: 0x8, addend: 0x0, symName: _rowDir, symObjAddr: 0x1470, symBinAddr: 0x100008134, symSize: 0x0 }
-  - { offsetInCU: 0x18A, offset: 0x18A, size: 0x8, addend: 0x0, symName: _colDir, symObjAddr: 0x1480, symBinAddr: 0x100008144, symSize: 0x0 }
-  - { offsetInCU: 0x1B7, offset: 0x1B7, size: 0x8, addend: 0x0, symName: _labirint, symBinAddr: 0x100008168, symSize: 0x0 }
-  - { offsetInCU: 0x1C5, offset: 0x1C5, size: 0x8, addend: 0x0, symName: _printRec, symObjAddr: 0x0, symBinAddr: 0x10000269C, symSize: 0xE8 }
-  - { offsetInCU: 0x205, offset: 0x205, size: 0x8, addend: 0x0, symName: _printMenu, symObjAddr: 0xE8, symBinAddr: 0x100002784, symSize: 0xC0 }
-  - { offsetInCU: 0x245, offset: 0x245, size: 0x8, addend: 0x0, symName: _Split, symObjAddr: 0x1A8, symBinAddr: 0x100002844, symSize: 0x118 }
-  - { offsetInCU: 0x2BD, offset: 0x2BD, size: 0x8, addend: 0x0, symName: _findInLabirint, symObjAddr: 0x2C0, symBinAddr: 0x10000295C, symSize: 0x10C }
-  - { offsetInCU: 0x335, offset: 0x335, size: 0x8, addend: 0x0, symName: _doLab, symObjAddr: 0x3CC, symBinAddr: 0x100002A68, symSize: 0xA90 }
-  - { offsetInCU: 0x447, offset: 0x447, size: 0x8, addend: 0x0, symName: _isValid, symObjAddr: 0xE5C, symBinAddr: 0x1000034F8, symSize: 0x10C }
-  - { offsetInCU: 0x48F, offset: 0x48F, size: 0x8, addend: 0x0, symName: _solveLab, symObjAddr: 0xF68, symBinAddr: 0x100003604, symSize: 0x1C0 }
-  - { offsetInCU: 0x55B, offset: 0x55B, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x1128, symBinAddr: 0x1000037C4, symSize: 0x214 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _printRec, symObjAddr: 0x0, symBinAddr: 0x1000024C4, symSize: 0xE8 }
+  - { offsetInCU: 0x3F, offset: 0x3F, size: 0x8, addend: 0x0, symName: _sizeA, symObjAddr: 0x386C, symBinAddr: 0x100008158, symSize: 0x0 }
+  - { offsetInCU: 0x5B, offset: 0x5B, size: 0x8, addend: 0x0, symName: _sizeB, symObjAddr: 0x3870, symBinAddr: 0x10000815C, symSize: 0x0 }
+  - { offsetInCU: 0x70, offset: 0x70, size: 0x8, addend: 0x0, symName: _curseX, symObjAddr: 0x153C, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offsetInCU: 0x85, offset: 0x85, size: 0x8, addend: 0x0, symName: _curseY, symObjAddr: 0x1540, symBinAddr: 0x100008004, symSize: 0x0 }
+  - { offsetInCU: 0x9A, offset: 0x9A, size: 0x8, addend: 0x0, symName: _tableRec, symObjAddr: 0x1544, symBinAddr: 0x100008008, symSize: 0x0 }
+  - { offsetInCU: 0xCF, offset: 0xCF, size: 0x8, addend: 0x0, symName: _tableBoldRec, symObjAddr: 0x1580, symBinAddr: 0x100008044, symSize: 0x0 }
+  - { offsetInCU: 0xE4, offset: 0xE4, size: 0x8, addend: 0x0, symName: _tableFullRec, symObjAddr: 0x15BC, symBinAddr: 0x100008080, symSize: 0x0 }
+  - { offsetInCU: 0xF9, offset: 0xF9, size: 0x8, addend: 0x0, symName: _startRec, symObjAddr: 0x15F8, symBinAddr: 0x1000080BC, symSize: 0x0 }
+  - { offsetInCU: 0x10E, offset: 0x10E, size: 0x8, addend: 0x0, symName: _endRec, symObjAddr: 0x1634, symBinAddr: 0x1000080F8, symSize: 0x0 }
+  - { offsetInCU: 0x123, offset: 0x123, size: 0x8, addend: 0x0, symName: _haveLabirint, symObjAddr: 0x3874, symBinAddr: 0x100008160, symSize: 0x0 }
+  - { offsetInCU: 0x13F, offset: 0x13F, size: 0x8, addend: 0x0, symName: _hasStart, symObjAddr: 0x3875, symBinAddr: 0x100008161, symSize: 0x0 }
+  - { offsetInCU: 0x154, offset: 0x154, size: 0x8, addend: 0x0, symName: _hasEnd, symObjAddr: 0x3876, symBinAddr: 0x100008162, symSize: 0x0 }
+  - { offsetInCU: 0x169, offset: 0x169, size: 0x8, addend: 0x0, symName: _rowDir, symObjAddr: 0x1670, symBinAddr: 0x100008134, symSize: 0x0 }
+  - { offsetInCU: 0x18A, offset: 0x18A, size: 0x8, addend: 0x0, symName: _colDir, symObjAddr: 0x1680, symBinAddr: 0x100008144, symSize: 0x0 }
+  - { offsetInCU: 0x1AB, offset: 0x1AB, size: 0x8, addend: 0x0, symName: _labirint, symBinAddr: 0x100008168, symSize: 0x0 }
+  - { offsetInCU: 0x1B9, offset: 0x1B9, size: 0x8, addend: 0x0, symName: _printRec, symObjAddr: 0x0, symBinAddr: 0x1000024C4, symSize: 0xE8 }
+  - { offsetInCU: 0x1F9, offset: 0x1F9, size: 0x8, addend: 0x0, symName: _printMenu, symObjAddr: 0xE8, symBinAddr: 0x1000025AC, symSize: 0xC0 }
+  - { offsetInCU: 0x239, offset: 0x239, size: 0x8, addend: 0x0, symName: _Split, symObjAddr: 0x1A8, symBinAddr: 0x10000266C, symSize: 0x118 }
+  - { offsetInCU: 0x2B1, offset: 0x2B1, size: 0x8, addend: 0x0, symName: _findInLabirint, symObjAddr: 0x2C0, symBinAddr: 0x100002784, symSize: 0x10C }
+  - { offsetInCU: 0x329, offset: 0x329, size: 0x8, addend: 0x0, symName: _doLab, symObjAddr: 0x3CC, symBinAddr: 0x100002890, symSize: 0xA90 }
+  - { offsetInCU: 0x43B, offset: 0x43B, size: 0x8, addend: 0x0, symName: _isValid, symObjAddr: 0xE5C, symBinAddr: 0x100003320, symSize: 0x118 }
+  - { offsetInCU: 0x483, offset: 0x483, size: 0x8, addend: 0x0, symName: _solveLab, symObjAddr: 0xF74, symBinAddr: 0x100003438, symSize: 0x1CC }
+  - { offsetInCU: 0x54F, offset: 0x54F, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x1140, symBinAddr: 0x100003604, symSize: 0x3FC }
 ...
