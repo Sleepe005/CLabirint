@@ -34,6 +34,14 @@ bool haveLabirint = false;
 bool hasStart = false;
 bool hasEnd = false;
 
+typedef struct{
+    int row, col;
+} Point;
+
+int rowDir[] = {-1, 1, 0, 0};
+int colDir[] = {0, 0, -1, 1};
+
+// Напечатать квадрат
 void printRec(char tableRec[3][20], int row, int column){
     printw(tableRec[0]);    
     move(row+1+3*row,(column)*5); 
@@ -45,6 +53,7 @@ void printRec(char tableRec[3][20], int row, int column){
     move(row+3*row,(column+1)*5);
 }
 
+// Вывести меню
 void printMenu(){
     char menu[3][100] = {
         "(Навигация по меню осуществляется с помощью цифр)\n",
@@ -76,13 +85,12 @@ void Split(char data[6], int *value){
     value[j] = atoi(element);
 }
 
+// Найти координату элемента в лабиринте
 void findInLabirint(int itemToFind, int *retValues){
     bool finding = false;
     for(int row = 0; row != sizeA; ++row){
         for(int column = 0; column != sizeB; ++column){
             if(*(labirint + row*sizeB + column) == itemToFind){
-                // *rowFind = row;
-                // *columnFind = column;
                 retValues[0] = row;
                 retValues[1] = column;
                 finding = true;
@@ -95,6 +103,7 @@ void findInLabirint(int itemToFind, int *retValues){
     }
 }
 
+// Создать лабиринт
 void doLab(){
     if(haveLabirint){
         clear();
@@ -129,7 +138,6 @@ void doLab(){
     }
 
     // Генерируем лабиринт
-    // int labirint[sizeA][sizeB];
     if(!haveLabirint){
         for(int row = 0; row != sizeA; ++row){
             for(int column = 0; column != sizeB; ++column){
@@ -248,6 +256,41 @@ void doLab(){
     }
 }
 
+int isValid(int row, int col, int visited[sizeA][sizeB]) {
+    return (row >= 0 && row < sizeA && col >= 0 && col < sizeB && *(labirint + row*sizeB + col) != 1 && !visited[row][col]);
+}
+
+bool solveLab(int visited[sizeA][sizeB], Point current, Point end, Point* path, int step){
+     // Если достигли выхода, сохраняем текущее положение в путь и возвращаем успех
+    if (current.row == end.row && current.col == end.col) {
+        path[step] = current;
+        return 1;
+    }
+
+    // Помечаем текущую клетку как посещённую
+    visited[current.row][current.col] = 1;
+    path[step] = current;  // Добавляем текущую клетку в путь
+
+    // Проходим по всем направлениям
+    for (int i = 0; i < 4; i++) {
+        int newRow = current.row + rowDir[i];
+        int newCol = current.col + colDir[i];
+
+        if (isValid(newRow, newCol, visited)) {
+            Point newPoint = {newRow, newCol};
+
+            // Рекурсивно ищем путь из новой клетки
+            if (solveLab(visited, newPoint, end, path, step + 1)) {
+                return 1;  // Если выход найден, возвращаем успех
+            }
+        }
+    }
+
+    // Если путь через эту клетку не найден, возвращаемся назад (backtracking)
+    visited[current.row][current.col] = 0;  // Снимаем отметку посещённости
+    return 0;  // Путь не найден
+}
+
 int main(){
     setlocale(LC_ALL, "");
     initscr();
@@ -260,6 +303,56 @@ int main(){
         key = getch();
         if(key == 49){
             doLab();
+        }else if(key == 50){
+            clear();
+            int visited[10][10] = {0};
+
+            int valStart[2] = {0};
+            findInLabirint(2, valStart);
+
+            int valEnd[2] = {0};
+            findInLabirint(3, valEnd);
+
+            Point start = {valStart[0], valStart[1]};
+            Point end = {valEnd[0], valEnd[1]};
+
+            Point path[100];
+
+            if(solveLab(visited, start, end, path, 0)){
+                // printw("Путь найден:\n");
+                // for (int i = 0; i < sizeA * sizeB; i++) {
+                //     if (path[i].row == 0 && path[i].col == 0) break;
+                //     printw("(%d, %d) -> ", path[i].row, path[i].col);
+                // }
+                // printw("EXIT\n");
+
+                int sl[10][10] = {0};
+                for(int i = 0; i < sizeA*sizeB; i++){
+                    if (path[i].row == 0 && path[i].col == 0) break;
+                    sl[path[i].row][path[i].col] = 1;
+                }
+
+                for(int row = 0; row != sizeA; ++row){
+                    for(int column = 0; column != sizeB; ++column){
+                        if(sl[row][column] == 1){
+                            printRec(tableBoldRec, row, column);
+                        }else if(*(labirint + row*sizeB + column) == 1){
+                            printRec(tableFullRec, row, column);
+                        }else if(*(labirint + row*sizeB + column) == 2){
+                            printRec(startRec, row, column);
+                        }else if(*(labirint + row*sizeB + column) == 3){
+                            printRec(endRec, row, column);
+                        }else{
+                            printRec(tableRec, row, column);
+                        }
+                    }
+                    move(row+4+3*row, 0);
+                }
+
+            } else {
+                printw("Путь не найден.\n");
+            }
+            getch();
         }
 
         clear();
